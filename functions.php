@@ -411,6 +411,9 @@ function twenty_twenty_one_scripts() {
 	// Print styles.
 	wp_enqueue_style( 'twenty-twenty-one-print-style', get_template_directory_uri() . '/assets/css/print.css', array(), wp_get_theme()->get( 'Version' ), 'print' );
 
+	// sportbook styles.
+	wp_enqueue_style( 'sportbook-style', get_template_directory_uri() . '/assets/css/sportsbook.css', array(), wp_get_theme()->get( 'Version' ) );
+
 	// Threaded comment reply styles.
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
