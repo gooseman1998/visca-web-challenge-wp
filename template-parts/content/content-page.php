@@ -24,6 +24,14 @@
 		</header><!-- .entry-header -->
 	<?php endif; ?>
 
+    <?php if(get_post_meta(get_the_id(),'sportsBook')): ?>
+        <div class="entry-content sports-book">
+            <div class="sports-book__text">
+                <h2> You choose the sportsbook: <?php echo "\"" . get_post_meta(get_the_id(),'sportsBook', true) . "\"" ?> </h2>
+            </div>
+        </div>
+    <?php endif; ?>
+
 	<div class="entry-content">
 		<?php
 		the_content();
