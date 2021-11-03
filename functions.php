@@ -649,12 +649,19 @@ function cd_meta_box_add()
 function set_box_attributes( $post ) {
 
 	$sportsBook = get_post_meta( $post->ID, 'sportsBook', true );
+
+	$request = wp_remote_get('http://www.viscaweb.com/developers/test-front-end/pages/step2-sportsbooks.json');
+	$body = wp_remote_retrieve_body( $request );
+	$data = json_decode( $body );
     ?>
+
         <label for="sportsBook">Sportsbook:</label>
         <select id="sportsBook" name="sportsBook">
-            <option value="test1" <?php echo selected("test1", $sportsBook, false);?>>test1</option> 
-            <option value="test2" <?php echo selected("test2", $sportsBook, false);?>>test2</option> 
+            <?php foreach($data as $company) : ?>
+                <option value="<?php echo $company;?>" <?php echo selected($company, $sportsBook, false);?>><?php echo $company;?></option> 
+            <?php endforeach; ?>
         </select>
+
     <?php
 }
 
