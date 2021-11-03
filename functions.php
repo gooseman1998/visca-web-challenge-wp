@@ -637,3 +637,36 @@ function twentytwentyone_add_ie_class() {
 	<?php
 }
 add_action( 'wp_footer', 'twentytwentyone_add_ie_class' );
+
+add_action( 'add_meta_boxes', 'cd_meta_box_add' );
+
+function cd_meta_box_add()
+{
+	add_meta_box('meta-box-sportsbook', 'Choose sportsbook', 'set_box_attributes', 'page', 'normal', 'default');
+}
+
+
+function set_box_attributes( $post ) {
+
+	$sportsBook = get_post_meta( $post->ID, 'sportsBook', true );
+    ?>
+        <label for="sportsBook">Sportsbook:</label>
+        <select id="sportsBook" name="sportsBook">
+            <option value="test1" <?php echo selected("test1", $sportsBook, false);?>>test1</option> 
+            <option value="test2" <?php echo selected("test2", $sportsBook, false);?>>test2</option> 
+        </select>
+    <?php
+}
+
+add_action( 'save_post', 'cd_meta_box_save', 10, 2  );
+function cd_meta_box_save( $post_id, $post )
+{
+
+    if( isset( $_POST[ 'sportsBook' ] ) ) {
+		update_post_meta( $post_id, 'sportsBook', sanitize_text_field( $_POST[ 'sportsBook' ] ) );
+	} else {
+		delete_post_meta( $post_id, 'sportsBook' );
+	}
+
+	return $post_id;
+}
